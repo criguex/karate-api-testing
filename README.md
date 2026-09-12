@@ -1,26 +1,102 @@
-# Karate Kashio Automation 
+# Makeup API Test Suite — Karate DSL
 
-Automation for basic flows as registration, login, purchase, and inquires of an online album sales system.
+![Java](https://img.shields.io/badge/Java-11+-ED8B00?logo=openjdk&logoColor=white)
+![Karate](https://img.shields.io/badge/Karate-DSL-1BA1F2?logo=java&logoColor=white)
+![Maven](https://img.shields.io/badge/Maven-Build-C71A36?logo=apache-maven&logoColor=white)
 
-### Pre-requirements 📋
+REST API test automation suite for the [Makeup API](http://makeup-api.herokuapp.com) built with **Karate DSL** and Maven. Validates product search and filtering endpoints across 6 feature modules with both happy-path and failure scenarios.
 
-If you are a Java developer - Karate requires Java 11  and then either Maven, Gradle, Eclipse or IntelliJ to be installed. Note that Karate works fine on OpenJDK. Any Java version from 11-17 is supported.
+## Test Coverage
 
-If you are new to programming or test-automation, refer to this video for getting started with just the (free) IntelliJ Community Edition. Other options are the quickstart or the standalone executable.
+| Feature File | Endpoint Filter | Test Data | Tags |
+|---|---|---|---|
+| `producto.feature` | `?product_type` | eyeshadow, eyebrow, lipstick | `@successfull`, `@fail` |
+| `marca.feature` | `?brand` | marcelle, milani, iman | `@successfull`, `@fail` |
+| `marcaProduto.feature` | `?brand + product_type` | marcelle/eyeliner, milani/blush | `@successfull`, `@fail` |
+| `productoMarca.feature` | `?product_type` | eyeshadow, eyebrow, lipstick | `@successfull`, `@fail` |
+| `MarcaProductoTag.feature` | `?brand + product_type + tag` | marcelle/eyeliner/canadian | `@successfull`, `@fail` |
+| `productoCategoria.feature` | `?product_type + product_category` | eyeliner/cream, lipstick/liquid | `@successfull`, `@fail` |
 
-If you don't want to use Java, you have the option of just downloading and extracting the ZIP release. Try this especially if you don't have much experience with programming or test-automation. We recommend that you use the Karate extension for Visual Studio Code - and with that, JavaScript, .NET and Python programmers will feel right at home.
+## Project Structure
 
-Visual Studio Code can be used for Java (or Maven) projects as well. One reason to use it is the excellent debug support that we have for Karate.
+```
+src/test/
+├── java/
+│   ├── features/            # Karate .feature files
+│   │   ├── marca.feature
+│   │   ├── producto.feature
+│   │   ├── productoMarca.feature
+│   │   ├── marcaProduto.feature
+│   │   ├── MarcaProductoTag.feature
+│   │   └── productoCategoria.feature
+│   └── runner/
+│       └── TestParallel.java   # JUnit parallel runner
+└── resources/
+    └── schema_response/        # JSON schema fixtures for response validation
+        ├── responseMarcaJson200.json
+        └── responseProductoJson200.json
+```
 
-information obtained from  https://github.com/intuit/karate/blob/master/README.md
+## Sample Scenario
 
-## Runner test  ⚙️
-*  Clone the project in rute
-*  Open the project in IDE
-*  Go to the folder Runner 
-*  Run this class for start the all test
+```gherkin
+Feature: Get products by brand
 
-## Built with 🛠️
+  Background:
+    * url baseUrl
 
-* [Karate](https://github.com/intuit/karate) - Framework  Automation Apis
-* [Maven](https://maven.apache.org/) - Dependence
+  @successfull
+  Scenario Outline: Filter products by type
+    Given params { product_type: "<product_type>" }
+    When method get
+    Then status 200
+    And match response contains responseJson200
+    And match response[0].product_type contains "<product_type>"
+
+    Examples:
+      | product_type |
+      | eyeshadow    |
+      | lipstick     |
+```
+
+## Tech Stack
+
+| Tool | Version | Purpose |
+|---|---|---|
+| Java | 11–17 | Runtime |
+| Maven | 3.x | Build & dependency management |
+| Karate DSL | 1.x | API test framework |
+| JUnit | 4.x | Test runner integration |
+
+## Getting Started
+
+### Prerequisites
+- Java 11+
+- Maven 3.x
+
+### Run All Tests
+
+```bash
+git clone https://github.com/criguex/test-APIS-kashio.git
+cd test-APIS-kashio
+mvn clean test
+```
+
+### Run by Tag
+
+```bash
+mvn clean test -Dkarate.options="--tags @successfull"
+mvn clean test -Dkarate.options="--tags @fail"
+```
+
+### View Report
+
+Karate generates an HTML report after execution:
+```
+target/surefire-reports/
+target/cucumber-html-reports/
+```
+
+## License
+
+MIT
