@@ -1,4 +1,4 @@
-Feature: Get lists by brand
+Feature: Filter products by brand and product type
 
   Background:
     * url baseUrl
@@ -6,7 +6,7 @@ Feature: Get lists by brand
     * def responseJson200 = read("classpath:../schema_response/responseMarcaJson200.json")
     * print responseJson200
 
-  @successfull
+  @positive
   Scenario Outline:
     Given params { brand: "<brand>", product_type:"<product_type>"}
     When method get
@@ -24,7 +24,7 @@ Feature: Get lists by brand
       | iman       |mascara     |
 
 
-  @fail
+  @negative
   Scenario Outline:
     Given url 'http://makeup-api.herokuapp.com/'
     And path 'api/ddd/' + 'products.json?'

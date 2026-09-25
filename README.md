@@ -1,102 +1,77 @@
-# Makeup API Test Suite — Karate DSL
+# Karate API Testing
 
-![Java](https://img.shields.io/badge/Java-11+-ED8B00?logo=openjdk&logoColor=white)
-![Karate](https://img.shields.io/badge/Karate-DSL-1BA1F2?logo=java&logoColor=white)
-![Maven](https://img.shields.io/badge/Maven-Build-C71A36?logo=apache-maven&logoColor=white)
+REST API test suite built with Karate DSL and Maven against the public [Makeup API](http://makeup-api.herokuapp.com/): data-driven scenarios, response schema matching and negative cases, executed in parallel and on CI.
 
-REST API test automation suite for the [Makeup API](http://makeup-api.herokuapp.com) built with **Karate DSL** and Maven. Validates product search and filtering endpoints across 6 feature modules with both happy-path and failure scenarios.
+[![CI](https://github.com/criguex/karate-api-testing/actions/workflows/ci.yml/badge.svg)](https://github.com/criguex/karate-api-testing/actions/workflows/ci.yml)
+![Java](https://img.shields.io/badge/Java-17-ED8B00?logo=openjdk&logoColor=white)
+![Karate](https://img.shields.io/badge/Karate-1.3-1BA1F2)
+![Maven](https://img.shields.io/badge/Maven-3.x-C71A36?logo=apachemaven&logoColor=white)
 
-## Test Coverage
+## What it tests
 
-| Feature File | Endpoint Filter | Test Data | Tags |
+Endpoint under test: `GET /api/v1/products.json` with query-string filters.
+
+| Feature | Filters | `@positive` scenario | `@negative` scenario |
 |---|---|---|---|
-| `producto.feature` | `?product_type` | eyeshadow, eyebrow, lipstick | `@successfull`, `@fail` |
-| `marca.feature` | `?brand` | marcelle, milani, iman | `@successfull`, `@fail` |
-| `marcaProduto.feature` | `?brand + product_type` | marcelle/eyeliner, milani/blush | `@successfull`, `@fail` |
-| `productoMarca.feature` | `?product_type` | eyeshadow, eyebrow, lipstick | `@successfull`, `@fail` |
-| `MarcaProductoTag.feature` | `?brand + product_type + tag` | marcelle/eyeliner/canadian | `@successfull`, `@fail` |
-| `productoCategoria.feature` | `?product_type + product_category` | eyeliner/cream, lipstick/liquid | `@successfull`, `@fail` |
+| `brand.feature` | `brand` | 200, schema match, first item's brand matches | wrong path returns 404 with an HTML body |
+| `product-type.feature` | `product_type` | 200, schema match, product type matches | wrong path returns 404 with an HTML body |
+| `brand-and-product-type.feature` | `brand`, `product_type` | 200, schema match, brand and product type match | wrong path returns 404 with an HTML body |
+| `brand-product-type-and-tag.feature` | `brand`, `product_type`, `product_tags` | 200, schema match, product type matches | wrong or empty path returns 404 with an HTML body |
+| `product-type-and-category.feature` | `product_type`, `product_category` | 200, schema match, product type and category match | wrong or empty path returns 404 with an HTML body |
 
-## Project Structure
+Every scenario is a `Scenario Outline` with three example rows: 5 features, 30 scenarios.
 
-```
-src/test/
-├── java/
-│   ├── features/            # Karate .feature files
-│   │   ├── marca.feature
-│   │   ├── producto.feature
-│   │   ├── productoMarca.feature
-│   │   ├── marcaProduto.feature
-│   │   ├── MarcaProductoTag.feature
-│   │   └── productoCategoria.feature
-│   └── runner/
-│       └── TestParallel.java   # JUnit parallel runner
-└── resources/
-    └── schema_response/        # JSON schema fixtures for response validation
-        ├── responseMarcaJson200.json
-        └── responseProductoJson200.json
-```
+## Architecture
 
-## Sample Scenario
+- **Karate DSL**: HTTP calls, assertions and JSON matching written in Gherkin, no glue code.
+- **Schema matching**: expected response shapes live in `schema_response/*.json` using Karate fuzzy markers (`#number`, `#string`, `#array`, `#present`) and are applied with `match response contains`.
+- **Configuration**: `karate-config.js` defines `baseUrl` and connect/read timeouts (5 s each).
+- **Runner**: a single JUnit 5 test (`runner/ApiSuiteTest`) executes all features with 5 parallel threads and fails the build on any scenario failure.
 
-```gherkin
-Feature: Get products by brand
+## How to run
 
-  Background:
-    * url baseUrl
-
-  @successfull
-  Scenario Outline: Filter products by type
-    Given params { product_type: "<product_type>" }
-    When method get
-    Then status 200
-    And match response contains responseJson200
-    And match response[0].product_type contains "<product_type>"
-
-    Examples:
-      | product_type |
-      | eyeshadow    |
-      | lipstick     |
-```
-
-## Tech Stack
-
-| Tool | Version | Purpose |
-|---|---|---|
-| Java | 11–17 | Runtime |
-| Maven | 3.x | Build & dependency management |
-| Karate DSL | 1.x | API test framework |
-| JUnit | 4.x | Test runner integration |
-
-## Getting Started
-
-### Prerequisites
-- Java 11+
-- Maven 3.x
-
-### Run All Tests
+Requires JDK 17 and Maven 3.x.
 
 ```bash
-git clone https://github.com/criguex/test-APIS-kashio.git
-cd test-APIS-kashio
+git clone https://github.com/criguex/karate-api-testing.git
+cd karate-api-testing
 mvn clean test
+
+mvn test -Dkarate.options="--tags @positive"
+mvn test -Dkarate.options="--tags @negative"
 ```
 
-### Run by Tag
+## Project structure
 
-```bash
-mvn clean test -Dkarate.options="--tags @successfull"
-mvn clean test -Dkarate.options="--tags @fail"
+```
+.
+├── .github/workflows/ci.yml
+├── pom.xml
+└── src/test/java/
+    ├── features/
+    │   ├── brand.feature
+    │   ├── product-type.feature
+    │   ├── brand-and-product-type.feature
+    │   ├── brand-product-type-and-tag.feature
+    │   └── product-type-and-category.feature
+    ├── runner/ApiSuiteTest.java
+    ├── schema_response/
+    │   ├── responseMarcaJson200.json
+    │   └── responseProductoJson200.json
+    ├── karate-config.js
+    └── logback-test.xml
 ```
 
-### View Report
+## Reporting
 
-Karate generates an HTML report after execution:
-```
-target/surefire-reports/
-target/cucumber-html-reports/
-```
+- Karate HTML report: `target/karate-reports/karate-summary.html`, with a page per feature including request and response logs.
+- Cucumber JSON in `target/karate-reports/` for downstream tooling; Surefire XML in `target/surefire-reports/`.
+- On CI `target/karate-reports/` is uploaded as a build artifact.
 
-## License
+## CI
 
-MIT
+GitHub Actions (`.github/workflows/ci.yml`) runs `mvn -B test` with Temurin JDK 17 on every push and pull request to `main`. The suite depends on the public Makeup API being available.
+
+---
+
+Cristian Guerra · Senior SDET · [linkedin.com/in/criguex](https://www.linkedin.com/in/criguex)

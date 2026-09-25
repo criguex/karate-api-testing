@@ -1,18 +1,18 @@
-package examples;
+package runner;
 
 import com.intuit.karate.Results;
 import com.intuit.karate.Runner;
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-class ExamplesTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class ApiSuiteTest {
 
     @Test
-    void testParallel() {
+    void runAllFeaturesInParallel() {
         Results results = Runner.path("classpath:features")
                 .outputCucumberJson(true)
                 .parallel(5);
         assertEquals(0, results.getFailCount(), results.getErrorMessages());
     }
-
 }
