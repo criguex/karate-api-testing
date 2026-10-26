@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="530" viewBox="0 0 1280 530">
+<defs>
+<pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#55DFBD" stroke-opacity=".06" stroke-width="1"/></pattern>
+<clipPath id="c"><rect width="1280" height="530" rx="20"/></clipPath>
+<marker id="am" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#55DFBD"/></marker>
+<marker id="ac" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#FB8176"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#FFC56E"/></marker>
+</defs>
+<g clip-path="url(#c)"><rect width="1280" height="530" fill="#071B2B"/><rect width="1280" height="530" fill="url(#g)"/><rect x="0" y="0" width="8" height="530" fill="#55DFBD"/></g>
+<text x="48" y="56" font-family="Menlo,Consolas,monospace" font-size="13" font-weight="normal" fill="#8FA6B0" text-anchor="start" letter-spacing="2.5" xml:space="preserve">KARATE-API-TESTING · HOW IT WORKS</text>
+<text x="48" y="92" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="28" font-weight="bold" fill="#F4F7F5" text-anchor="start" xml:space="preserve">One runner, five features, two kinds of request</text>
+<text x="48" y="120" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="15" font-weight="normal" fill="#ABC0C8" text-anchor="start" xml:space="preserve">5 features × 6 scenarios = 30. Last CI run on main: 30 passed, 0 failed, 5 threads, 3.57 s elapsed.</text>
+<rect x="48" y="150" width="262" height="228" rx="12" fill="#0D2638" stroke="#214456" stroke-width="1.5"/>
+<text x="64" y="174" font-family="Menlo,Consolas,monospace" font-size="11" font-weight="normal" fill="#8FA6B0" text-anchor="start" letter-spacing="0.5" xml:space="preserve">src/test/java/features/</text>
+<text x="64" y="198" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="17" font-weight="bold" fill="#F4F7F5" text-anchor="start" xml:space="preserve">Feature files</text>
+<text x="64" y="223" font-family="Menlo,Consolas,monospace" font-size="12.5" font-weight="normal" fill="#ABC0C8" text-anchor="start" xml:space="preserve">brand</text>
+<text x="64" y="242" font-family="Menlo,Consolas,monospace" font-size="12.5" font-weight="normal" fill="#ABC0C8" text-anchor="start" xml:space="preserve">product-type</text>
+<text x="64" y="261" font-family="Menlo,Consolas,monospace" font-size="12.5" font-weight="normal" fill="#ABC0C8" text-anchor="start" xml:space="preserve">brand-and-product-type</text>
+<text x="64" y="280" font-family="Menlo,Consolas,monospace" font-size="12.5" font-weight="normal" fill="#ABC0C8" text-anchor="start" xml:space="preserve">brand-product-type-and-tag</text>
+<text x="64" y="299" font-family="Menlo,Consolas,monospace" font-size="12.5" font-weight="normal" fill="#ABC0C8" text-anchor="start" xml:space="preserve">product-type-and-category</text>
+<text x="64" y="318" font-family="Menlo,Consolas,monospace" font-size="12.5" xml:space="preserve"><tspan fill="#F4F7F5">Scenario Outline × 3 rows</tspan></text>
+<rect x="338" y="150" width="270" height="104" rx="12" fill="#0D2638" stroke="#214456" stroke-width="1.5"/>
+<text x="354" y="174" font-family="Menlo,Consolas,monospace" font-size="11" font-weight="normal" fill="#8FA6B0" text-anchor="start" letter-spacing="0.5" xml:space="preserve">config</text>
+<text x="354" y="198" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="16" font-weight="bold" fill="#F4F7F5" text-anchor="start" xml:space="preserve">karate-config.js</text>
+<text x="354" y="223" font-family="Menlo,Consolas,monospace" font-size="12.5" font-weight="normal" fill="#ABC0C8" text-anchor="start" xml:space="preserve">baseUrl: …/v1/products.json?</text>
+<text x="354" y="242" font-family="Menlo,Consolas,monospace" font-size="12.5" font-weight="normal" fill="#ABC0C8" text-anchor="start" xml:space="preserve">connect/read timeout 5 s</text>
+<rect x="338" y="274" width="270" height="104" rx="12" fill="#0D2638" stroke="#214456" stroke-width="1.5"/>
+<text x="354" y="298" font-family="Menlo,Consolas,monospace" font-size="11" font-weight="normal" fill="#8FA6B0" text-anchor="start" letter-spacing="0.5" xml:space="preserve">runner · JUnit 5</text>
+<text x="354" y="322" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="16" font-weight="bold" fill="#F4F7F5" text-anchor="start" xml:space="preserve">ApiSuiteTest</text>
+<text x="354" y="347" font-family="Menlo,Consolas,monospace" font-size="12.5" font-weight="normal" fill="#ABC0C8" text-anchor="start" xml:space="preserve">Runner.path("classpath:features")</text>
+<text x="354" y="366" font-family="Menlo,Consolas,monospace" font-size="12.5" xml:space="preserve"><tspan fill="#F4F7F5">.parallel(5)</tspan></text>
+<rect x="636" y="150" width="280" height="104" rx="12" fill="#0D2638" stroke="#214456" stroke-width="1.5"/>
+<text x="652" y="174" font-family="Menlo,Consolas,monospace" font-size="11" font-weight="normal" fill="#8FA6B0" text-anchor="start" letter-spacing="0.5" xml:space="preserve">GET /api/v1/products.json</text>
+<text x="652" y="198" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="16" font-weight="bold" fill="#F4F7F5" text-anchor="start" xml:space="preserve">@positive</text>
+<text x="652" y="223" font-family="Menlo,Consolas,monospace" font-size="12.5" font-weight="normal" fill="#ABC0C8" text-anchor="start" xml:space="preserve">?brand=maybelline</text>
+<text x="652" y="242" font-family="Menlo,Consolas,monospace" font-size="12.5" font-weight="normal" fill="#ABC0C8" text-anchor="start" xml:space="preserve">?product_type=blush&amp;brand=milani</text>
+<rect x="636" y="274" width="280" height="104" rx="12" fill="#0D2638" stroke="#214456" stroke-width="1.5"/>
+<text x="652" y="298" font-family="Menlo,Consolas,monospace" font-size="11" font-weight="normal" fill="#8FA6B0" text-anchor="start" letter-spacing="0.5" xml:space="preserve">GET /api/ddd/products.json</text>
+<text x="652" y="322" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="16" font-weight="bold" fill="#F4F7F5" text-anchor="start" xml:space="preserve">@negative</text>
+<text x="652" y="347" font-family="Menlo,Consolas,monospace" font-size="12.5" font-weight="normal" fill="#ABC0C8" text-anchor="start" xml:space="preserve">?brand=maybelline</text>
+<text x="652" y="366" font-family="Menlo,Consolas,monospace" font-size="12.5" font-weight="normal" fill="#ABC0C8" text-anchor="start" xml:space="preserve">same filters, wrong path</text>
+<rect x="944" y="150" width="288" height="104" rx="12" fill="#0D2638" stroke="#214456" stroke-width="1.5"/>
+<text x="960" y="174" font-family="Menlo,Consolas,monospace" font-size="11" font-weight="normal" fill="#8FA6B0" text-anchor="start" letter-spacing="0.5" xml:space="preserve">asserts (positive)</text>
+<text x="960" y="198" font-family="Menlo,Consolas,monospace" font-size="12.5" font-weight="normal" xml:space="preserve"><tspan fill="#55DFBD" font-weight="bold">✓</tspan><tspan fill="#F4F7F5"> status 200</tspan></text>
+<text x="960" y="218" font-family="Menlo,Consolas,monospace" font-size="12.5" font-weight="normal" xml:space="preserve"><tspan fill="#55DFBD" font-weight="bold">✓</tspan><tspan fill="#F4F7F5"> match response contains schema</tspan></text>
+<text x="960" y="238" font-family="Menlo,Consolas,monospace" font-size="12.5" font-weight="normal" xml:space="preserve"><tspan fill="#55DFBD" font-weight="bold">✓</tspan><tspan fill="#F4F7F5"> brand / product_type match</tspan></text>
+<rect x="944" y="274" width="288" height="104" rx="12" fill="#0D2638" stroke="#214456" stroke-width="1.5"/>
+<text x="960" y="298" font-family="Menlo,Consolas,monospace" font-size="11" font-weight="normal" fill="#8FA6B0" text-anchor="start" letter-spacing="0.5" xml:space="preserve">asserts (negative)</text>
+<text x="960" y="322" font-family="Menlo,Consolas,monospace" font-size="12.5" font-weight="normal" xml:space="preserve"><tspan fill="#55DFBD" font-weight="bold">✓</tspan><tspan fill="#F4F7F5"> status 404</tspan></text>
+<text x="960" y="342" font-family="Menlo,Consolas,monospace" font-size="12.5" font-weight="normal" xml:space="preserve"><tspan fill="#55DFBD" font-weight="bold">✓</tspan><tspan fill="#F4F7F5"> responseType == 'string'</tspan></text>
+<text x="960" y="362" font-family="Menlo,Consolas,monospace" font-size="12.5" font-weight="normal" xml:space="preserve"><tspan fill="#55DFBD" font-weight="bold">✓</tspan><tspan fill="#F4F7F5"> body contains &lt;html&gt;</tspan></text>
+<path d="M312 326 L336 326" fill="none" stroke="#55DFBD" stroke-width="2" marker-end="url(#am)"/>
+<path d="M473 256 L473 272" fill="none" stroke="#55DFBD" stroke-width="2" marker-end="url(#am)"/>
+<path d="M610 326 L622 326 L622 202 L634 202" fill="none" stroke="#55DFBD" stroke-width="2" marker-end="url(#am)"/>
+<path d="M610 326 L634 326" fill="none" stroke="#55DFBD" stroke-width="2" marker-end="url(#am)"/>
+<path d="M918 202 L942 202" fill="none" stroke="#55DFBD" stroke-width="2" marker-end="url(#am)"/>
+<path d="M918 326 L942 326" fill="none" stroke="#55DFBD" stroke-width="2" marker-end="url(#am)"/>
+<text x="636" y="400" font-family="Menlo,Consolas,monospace" font-size="12.5" font-weight="normal" fill="#8FA6B0" text-anchor="start" xml:space="preserve">Makeup API · makeup-api.herokuapp.com (public, third-party)</text>
+<text x="48" y="420" font-family="Menlo,Consolas,monospace" font-size="12.5" font-weight="normal" fill="#8FA6B0" text-anchor="start" xml:space="preserve">Gate · assertEquals(0, results.getFailCount())</text>
+<rect x="48.0" y="434" width="224.0" height="44" rx="8" fill="#123448" stroke="#214456" stroke-width="1.2"/>
+<text x="160.0" y="460.5" font-family="Menlo,Consolas,monospace" font-size="12" font-weight="normal" fill="#F4F7F5" text-anchor="middle" xml:space="preserve">checkout</text>
+<path d="M274.0 456.0 L286.0 456.0" fill="none" stroke="#55DFBD" stroke-width="1.6" marker-end="url(#am)"/>
+<rect x="288.0" y="434" width="224.0" height="44" rx="8" fill="#123448" stroke="#214456" stroke-width="1.2"/>
+<text x="400.0" y="452" font-family="Menlo,Consolas,monospace" font-size="12" font-weight="normal" fill="#F4F7F5" text-anchor="middle" xml:space="preserve">setup-java 17</text>
+<text x="400.0" y="469" font-family="Menlo,Consolas,monospace" font-size="11" font-weight="normal" fill="#ABC0C8" text-anchor="middle" xml:space="preserve">temurin · maven cache</text>
+<path d="M514.0 456.0 L526.0 456.0" fill="none" stroke="#55DFBD" stroke-width="1.6" marker-end="url(#am)"/>
+<rect x="528.0" y="434" width="224.0" height="44" rx="8" fill="#123448" stroke="#214456" stroke-width="1.2"/>
+<text x="640.0" y="452" font-family="Menlo,Consolas,monospace" font-size="12" font-weight="normal" fill="#F4F7F5" text-anchor="middle" xml:space="preserve">mvn -B test</text>
+<text x="640.0" y="469" font-family="Menlo,Consolas,monospace" font-size="11" text-anchor="middle" xml:space="preserve"><tspan fill="#55DFBD" font-weight="bold">✓</tspan><tspan fill="#ABC0C8"> 30 passed · 0 failed</tspan></text>
+<path d="M754.0 456.0 L766.0 456.0" fill="none" stroke="#55DFBD" stroke-width="1.6" marker-end="url(#am)"/>
+<rect x="768.0" y="434" width="224.0" height="44" rx="8" fill="#123448" stroke="#214456" stroke-width="1.2"/>
+<text x="880.0" y="452" font-family="Menlo,Consolas,monospace" font-size="12" font-weight="normal" fill="#F4F7F5" text-anchor="middle" xml:space="preserve">BUILD SUCCESS</text>
+<text x="880.0" y="469" font-family="Menlo,Consolas,monospace" font-size="11" font-weight="normal" fill="#ABC0C8" text-anchor="middle" xml:space="preserve">any failure → build fails</text>
+<path d="M994.0 456.0 L1006.0 456.0" fill="none" stroke="#55DFBD" stroke-width="1.6" marker-end="url(#am)"/>
+<rect x="1008.0" y="434" width="224.0" height="44" rx="8" fill="#123448" stroke="#214456" stroke-width="1.2"/>
+<text x="1120.0" y="452" font-family="Menlo,Consolas,monospace" font-size="12" font-weight="normal" fill="#F4F7F5" text-anchor="middle" xml:space="preserve">upload-artifact</text>
+<text x="1120.0" y="469" font-family="Menlo,Consolas,monospace" font-size="11" font-weight="normal" fill="#ABC0C8" text-anchor="middle" xml:space="preserve">karate-reports · 30 d</text>
+<text x="1232" y="508" font-family="Menlo,Consolas,monospace" font-size="13" font-weight="normal" fill="#55DFBD" text-anchor="end" xml:space="preserve">Cristian Guerra · QA · Medellín</text>
+</svg>
