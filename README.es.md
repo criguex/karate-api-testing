@@ -4,6 +4,34 @@
   <img src="docs/assets/banner.svg" alt="karate-api-testing: suite de API REST para la Makeup API pública con Gherkin guiado por datos, validación de esquema JSON y casos negativos en paralelo" width="100%">
 </p>
 
+## Explicado para un niño de 8 años
+
+Imagina una tienda que contesta preguntas por computador en vez de por teléfono. Le pides "muéstrame productos Maybelline" y te devuelve una lista. Este proyecto es como un profesor que califica esa respuesta: revisa que la lista tenga todas las partes que debe tener (un nombre, un precio, una marca…) y que la marca sí sea Maybelline. También toca a propósito una puerta que no existe, para asegurarse de que la tienda diga "no encontrado".
+
+### Un ejemplo real
+
+- **Imagina que:** le pedimos a la Makeup API productos con `brand=maybelline`.
+- **Qué debería pasar:** contesta "200, todo bien" con una lista, y la marca del primer producto es Maybelline.
+- **Qué hace el proyecto:** Karate revisa el número de estado, compara la respuesta con una plantilla (`id` tiene que ser un número, `name` tiene que ser texto, …) y lee la marca.
+- **Qué ganamos:** si la tienda cambiara la forma de sus respuestas o mandara otra marca, la prueba fallaría y el build completo se detendría. En CI pasaron los 30 escenarios.
+
+<p align="center">
+  <img src="docs/assets/explained.es.gif" alt="Historia ilustrada: un robot le pide a la Makeup API productos Maybelline, recibe una lista, revisa su forma con una lupa, toca una puerta equivocada y recibe el 404 esperado, y cinco ayudantes terminan 30 de 30 pruebas" width="960">
+</p>
+
+La misma animación en [MP4](docs/assets/explained.es.mp4).
+
+### Palabras difíciles
+
+| Palabra | Qué quiere decir |
+|---|---|
+| API | Una ventanilla para computadores: un programa pregunta y ella responde con datos |
+| Código de estado | Un número que dice cómo le fue: 200 es OK, 404 es no encontrado |
+| Esquema (schema) | La plantilla que tiene que seguir una respuesta, como las casillas de un formulario |
+| Scenario Outline | Una prueba escrita una sola vez y jugada con varias filas de ejemplos |
+| En paralelo | Varios ayudantes trabajando al mismo tiempo |
+| CI | Un robot que corre todas las pruebas cada vez que alguien sube un cambio |
+
 # Karate API Testing
 
 Suite de pruebas de API REST hecha con Karate DSL y Maven contra la [Makeup API](http://makeup-api.herokuapp.com/) pública: escenarios guiados por datos, validación del esquema de la respuesta y casos negativos, ejecutados en paralelo y en CI.
@@ -81,8 +109,8 @@ mvn test -Dkarate.options="--tags @negative"
 .
 ├── .github/workflows/ci.yml
 ├── docs/
-│   ├── assets/        banner.svg, how-it-works.svg, how-it-works.gif, how-it-works.mp4
-│   └── scenes/        how-it-works.html + export.sh (regenera la animación)
+│   ├── assets/        banner.svg, how-it-works.*, explained.* (animación para niños, EN + .es)
+│   └── scenes/        how-it-works.html, explained.html + sus scripts de export
 ├── pom.xml
 └── src/test/java/
     ├── features/
@@ -116,7 +144,7 @@ GitHub Actions (`.github/workflows/ci.yml`) corre `mvn -B test` con Temurin JDK 
 
 ## Regenerar la animación
 
-`docs/scenes/how-it-works.html` dibuja cada cuadro a partir de `?t=<segundos>`; `docs/scenes/export.sh` captura los cuadros con Chrome headless y arma `how-it-works.gif` y `how-it-works.mp4` con ffmpeg.
+`docs/scenes/how-it-works.html` dibuja cada cuadro a partir de `?t=<segundos>`; `docs/scenes/export.sh` captura los cuadros con Chrome headless y arma `how-it-works.gif` y `how-it-works.mp4` con ffmpeg. `docs/scenes/explained.html` (`?t=<segundos>&lang=en|es`) y `docs/scenes/export-explained.sh` hacen lo mismo con la animación para niños.
 
 ---
 

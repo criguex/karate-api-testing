@@ -4,6 +4,34 @@
   <img src="docs/assets/banner.svg" alt="karate-api-testing: REST API suite for the public Makeup API with data-driven Gherkin, JSON schema matching and negative cases in parallel" width="100%">
 </p>
 
+## Explained like you're 8
+
+Imagine a shop that answers questions by computer instead of by phone. You ask "show me Maybelline products" and it sends back a list. This project is like a teacher grading that answer: it checks the list has every part it should (a name, a price, a brand…) and that the brand really is Maybelline. It also knocks on a door that does not exist, on purpose, to make sure the shop says "not found".
+
+### A real example
+
+- **Imagine that:** we ask the Makeup API for products with `brand=maybelline`.
+- **What should happen:** it answers "200, all good" with a list, and the first product's brand is Maybelline.
+- **What the project does:** Karate checks the status number, compares the answer with a template (`id` must be a number, `name` must be text, …) and reads the brand.
+- **What we gain:** if the shop changed the shape of its answers or sent the wrong brand, the test would fail and the whole build would stop. On CI, all 30 scenarios passed.
+
+<p align="center">
+  <img src="docs/assets/explained.gif" alt="Illustrated story: a robot asks the Makeup API for Maybelline products, gets a list back, checks its shape with a magnifying glass, knocks on a wrong door and gets the expected 404, and five helpers finish 30 of 30 checks" width="960">
+</p>
+
+The same animation as [MP4](docs/assets/explained.mp4).
+
+### Hard words
+
+| Word | What it means |
+|---|---|
+| API | A shop window for computers: a program asks, it answers with data |
+| Status code | A number that says how it went: 200 means OK, 404 means not found |
+| Schema | The template an answer has to follow, like the boxes on a form |
+| Scenario Outline | One test written once and played with several example rows |
+| Parallel | Several helpers working at the same time |
+| CI | A robot that runs all the tests every time someone uploads a change |
+
 # Karate API Testing
 
 REST API test suite built with Karate DSL and Maven against the public [Makeup API](http://makeup-api.herokuapp.com/): data-driven scenarios, response schema matching and negative cases, executed in parallel and on CI.
@@ -81,8 +109,8 @@ mvn test -Dkarate.options="--tags @negative"
 .
 ├── .github/workflows/ci.yml
 ├── docs/
-│   ├── assets/        banner.svg, how-it-works.svg, how-it-works.gif, how-it-works.mp4
-│   └── scenes/        how-it-works.html + export.sh (rebuild the animation)
+│   ├── assets/        banner.svg, how-it-works.*, explained.* (kids' animation, EN + .es)
+│   └── scenes/        how-it-works.html, explained.html + their export scripts
 ├── pom.xml
 └── src/test/java/
     ├── features/
@@ -116,7 +144,7 @@ GitHub Actions (`.github/workflows/ci.yml`) runs `mvn -B test` with Temurin JDK 
 
 ## Rebuilding the animation
 
-`docs/scenes/how-it-works.html` draws each frame from `?t=<seconds>`; `docs/scenes/export.sh` captures the frames with headless Chrome and encodes `how-it-works.gif` and `how-it-works.mp4` with ffmpeg.
+`docs/scenes/how-it-works.html` draws each frame from `?t=<seconds>`; `docs/scenes/export.sh` captures the frames with headless Chrome and encodes `how-it-works.gif` and `how-it-works.mp4` with ffmpeg. `docs/scenes/explained.html` (`?t=<seconds>&lang=en|es`) and `docs/scenes/export-explained.sh` do the same for the kids' animation.
 
 ---
 
